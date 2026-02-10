@@ -20,6 +20,8 @@ WORKDIR /app
 COPY --from=builder /build/web /app/web
 COPY --from=builder /build/template /app/template
 
+RUN mkdir -p /app/notes
+
 EXPOSE 8686
 
 CMD ["/app/web"]
