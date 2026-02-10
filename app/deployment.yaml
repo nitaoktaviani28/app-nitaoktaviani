@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-app
+  labels:
+    app: go-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: go-app
+  template:
+    metadata:
+      labels:
+        app: go-app
+    spec:
+      containers:
+      - name: go-app
+        image: docker.io/haechanlovelove/app-nitaoktaviani:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8686
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8686
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8686
+          initialDelaySeconds: 15
+          periodSeconds: 20
+
